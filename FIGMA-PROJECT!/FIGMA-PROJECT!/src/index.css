@@ -1,0 +1,380 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family:
+    "Inter",
+    system-ui,
+    -apple-system,
+    sans-serif;
+}
+
+body {
+  background-color: #e5e5e5;
+  color: #111;
+  display: flex;
+  justify-content: center;
+}
+
+.page-container {
+  width: 100%;
+  max-width: 1280px;
+  background-color: #f2f2f2;
+  padding: 20px 40px;
+}
+
+/* Header */
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-bottom: 15px;
+}
+
+.nav-menu a {
+  margin-right: 25px;
+  text-decoration: none;
+  color: #222;
+  font-size: 14px;
+}
+
+.nav-menu a.active {
+  font-weight: bold;
+}
+
+.brand-logo {
+  font-size: 20px;
+}
+
+.header-icons {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+.header-icons .icon {
+  cursor: pointer;
+  font-size: 20px;
+}
+
+.cart-btn {
+  background: #111;
+  color: #fff;
+  border: none;
+  padding: 6px 14px;
+  border-radius: 20px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+  font-size: 13px;
+}
+
+/* Sub-header */
+.sub-header {
+  margin-top: 10px;
+  margin-bottom: 25px;
+}
+
+.categories span {
+  display: block;
+  font-size: 11px;
+  font-weight: bold;
+  color: #444;
+  letter-spacing: 0.5px;
+  margin-bottom: 4px;
+}
+
+.search-bar {
+  display: flex;
+  align-items: center;
+  background: #e0e0e0;
+  width: 260px;
+  padding: 6px 12px;
+  border-radius: 4px;
+  margin-top: 15px;
+}
+
+.search-bar input {
+  border: none;
+  background: transparent;
+  outline: none;
+  margin-left: 8px;
+  width: 100%;
+  font-size: 13px;
+}
+
+/* Hero Section */
+.hero-section {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 80px;
+}
+
+.hero-title {
+  font-size: 56px;
+  line-height: 0.95;
+  font-weight: 900;
+  letter-spacing: -2px;
+}
+
+.hero-subtitle,
+.hero-tag {
+  font-size: 12px;
+  color: #666;
+  margin-top: 10px;
+}
+
+.hero-controls {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  margin-top: 35px;
+}
+
+.btn-black {
+  background: #111;
+  color: #fff;
+  border: none;
+  padding: 12px 24px;
+  font-size: 13px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.slider-arrows button {
+  background: #d8d8d8;
+  border: none;
+  width: 35px;
+  height: 35px;
+  cursor: pointer;
+  margin-right: 5px;
+}
+
+.hero-right {
+  display: flex;
+  gap: 20px;
+}
+
+.hero-card img {
+  width: 260px;
+  height: 350px;
+  object-fit: cover;
+  background: #ddd;
+}
+
+/* Section Common */
+.section {
+  margin-bottom: 80px;
+}
+
+.section-title {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  margin-bottom: 20px;
+}
+
+.section-title h2 {
+  font-size: 26px;
+  font-weight: 900;
+  letter-spacing: -0.5px;
+}
+
+.section-title span {
+  color: #2b39d1;
+  font-size: 14px;
+  font-weight: normal;
+}
+
+.see-all,
+.filter-sorts {
+  font-size: 12px;
+  color: #555;
+  text-decoration: none;
+}
+
+.tab-menu {
+  display: flex;
+  gap: 20px;
+  font-size: 12px;
+  color: #777;
+  margin-bottom: 25px;
+}
+
+.tab-menu .active {
+  color: #000;
+  font-weight: bold;
+}
+
+/* Grids */
+.product-grid {
+  display: grid;
+  gap: 20px;
+}
+
+.four-cols {
+  grid-template-columns: repeat(4, 1fr);
+}
+
+.three-cols {
+  grid-template-columns: repeat(3, 1fr);
+}
+
+.product-card {
+  text-decoration: none;
+  color: inherit;
+}
+
+.img-box {
+  position: relative;
+  width: 100%;
+  height: 320px;
+  background: #e8e8e8;
+  margin-bottom: 12px;
+}
+
+.img-box img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.add-btn {
+  position: absolute;
+  bottom: 12px;
+  right: 12px;
+  background: #fff;
+  border: none;
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+.sub-cat {
+  font-size: 10px;
+  color: #777;
+  display: block;
+}
+
+.product-card h3 {
+  font-size: 13px;
+  font-weight: 600;
+  margin: 3px 0;
+}
+
+.product-card .price {
+  font-size: 12px;
+  font-weight: bold;
+}
+
+/* About Section */
+.about-section {
+  text-align: center;
+  margin: 100px 0 80px;
+}
+
+.about-section h2 {
+  font-size: 26px;
+  letter-spacing: 1px;
+  font-weight: 800;
+}
+
+.about-desc {
+  max-width: 520px;
+  margin: 15px auto 40px;
+  font-size: 12px;
+  color: #555;
+  line-height: 1.6;
+}
+
+.about-gallery {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+}
+
+.gallery-card img {
+  width: 220px;
+  height: 300px;
+  object-fit: cover;
+}
+
+/* Figma Footer (Скриншот №5) */
+.footer-figma {
+  background: #e6e6e6;
+  padding: 60px 40px 20px;
+  margin-top: 60px;
+  font-size: 11px;
+  color: #444;
+}
+
+.footer-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+}
+
+.footer-label {
+  font-size: 10px;
+  color: #888;
+  display: block;
+  margin-bottom: 15px;
+  letter-spacing: 1px;
+}
+
+.footer-group {
+  margin-bottom: 30px;
+}
+
+.footer-group p {
+  line-height: 1.6;
+  font-weight: 500;
+}
+
+.footer-center-col {
+  text-align: center;
+  margin-right: 20%;
+}
+
+.footer-brand-wrap {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+.footer-big-logo {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.footer-big-logo .triangle-icon {
+  font-size: 32px;
+}
+
+.footer-big-logo h1 {
+  font-size: 48px;
+  line-height: 0.85;
+  font-weight: 900;
+  text-align: left;
+}
+
+.footer-nfc-text {
+  font-size: 11px;
+  color: #777;
+  border-left: 1px solid #aaa;
+  padding-left: 15px;
+}
+
+.footer-bottom-bar {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 60px;
+  padding-top: 15px;
+  color: #888;
+  font-size: 10px;
+}

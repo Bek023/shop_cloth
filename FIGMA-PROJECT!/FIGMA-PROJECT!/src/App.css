@@ -1,0 +1,85 @@
+
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.modal-content {
+  background: #fff;
+  padding: 30px;
+  border-radius: 8px;
+  width: 320px;
+  position: relative;
+}
+
+.modal-title {
+  margin-bottom: 20px;
+  font-size: 22px;
+}
+
+.modal-close-btn {
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  background: none;
+  border: none;
+  font-size: 18px;
+  cursor: pointer;
+}
+
+/* Элементы формы и ошибки */
+.form-group {
+  margin-bottom: 12px;
+}
+
+.form-group.password-group {
+  margin-bottom: 18px;
+}
+
+.modal-input {
+  width: 100%;
+  padding: 10px;
+  box-sizing: border-box;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+.modal-input.input-error {
+  border-color: #d9534f;
+}
+
+.error-text {
+  color: #d9534f;
+  font-size: 12px;
+  margin-top: 4px;
+  display: block;
+}
+
+.modal-submit-btn {
+  width: 100%;
+  padding: 10px;
+}
+.img-box {
+  background-color: #f2f2f2; 
+  border-radius: 4px;
+  overflow: hidden;
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.img-box img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  mix-blend-mode: multiply; 
+}
