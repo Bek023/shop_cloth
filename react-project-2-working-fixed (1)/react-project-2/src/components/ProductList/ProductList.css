@@ -1,0 +1,11 @@
+.product-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 30px;
+}
+
+.no-products {
+    font-size: 16px;
+    color: #666;
+    padding: 20px 0;
+}

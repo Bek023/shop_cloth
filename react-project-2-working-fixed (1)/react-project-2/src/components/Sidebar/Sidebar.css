@@ -1,0 +1,104 @@
+.sidebar {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.sidebar h3 {
+    font-size: 18px;
+    margin-bottom: 10px;
+}
+
+.filter-group {
+    border-bottom: 1px dashed #ddd;
+    padding-bottom: 15px;
+}
+
+.filter-group h4 {
+    font-size: 14px;
+    margin-bottom: 15px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    cursor: pointer;
+    user-select: none;
+}
+
+.size-buttons {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 8px;
+}
+
+.size-buttons button {
+    padding: 8px 0;
+    background: white;
+    border: 1px solid #ddd;
+    cursor: pointer;
+    font-size: 14px;
+    transition: 0.3s;
+}
+
+.size-buttons button.active {
+    background: #111;
+    color: #fff;
+    border-color: #111;
+}
+
+.checkbox-label {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 10px;
+    font-size: 14px;
+    cursor: pointer;
+    color: #333;
+}
+
+.checkbox-label span {
+    color: #f6f5f5;
+    font-size: 12px;
+}
+
+.accordion-item h4 {
+    margin-bottom: 0; 
+}
+
+
+.arrow {
+    border: solid #111;
+    border-width: 0 1.5px 1.5px 0;
+    display: inline-block;
+    padding: 3.5px;
+    transform: rotate(-45deg);
+    transition: transform 0.3s ease;
+    margin-right: 5px;
+}
+
+.arrow.open {
+    transform: rotate(45deg);
+}
+
+.accordion-content {
+    display: grid;
+    grid-template-rows: 0fr;
+    transition: grid-template-rows 0.3s ease;
+}
+
+.accordion-content.open {
+    grid-template-rows: 1fr;
+}
+
+.accordion-content-inner {
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+}
+
+.accordion-content.open .accordion-content-inner {
+    padding-top: 15px; 
+}
+
+.accordion-content-inner .checkbox-label:last-child {
+    margin-bottom: 0;
+}
