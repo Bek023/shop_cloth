@@ -1,1 +1,1 @@
-bu repo studentlar uchun
+bu repo studentlar uchun ds
