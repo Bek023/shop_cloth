@@ -1,1 +1,1 @@
-test 
+bu repo studentlar uchun
