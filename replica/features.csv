@@ -1,0 +1,33 @@
+feature,area,priority,original,clone,notes
+Telefon raqam va SMS kod bilan kirish,onboarding,must,yes,no,portfolio uchun test rejimidagi OTP yetarli
+Do'kon profilini yaratish,onboarding,must,yes,no,
+Til tanlash (uz lotin / uz kirill / ru),onboarding,must,guess,no,
+Mijozlar ro'yxati balans bilan,mijozlar,must,yes,no,
+Jami olishim kerak / berishim kerak,mijozlar,must,yes,no,
+Mijoz qidirish,mijozlar,must,yes,no,
+Mijoz qo'shish va tahrirlash,mijozlar,must,yes,no,
+Qarz yozish (Berdim),tranzaksiyalar,must,yes,no,asosiy sikl
+To'lov yozish (Oldim),tranzaksiyalar,must,yes,no,
+Mijoz tranzaksiyalar tarixi,tranzaksiyalar,must,yes,no,
+Yozuvni tahrirlash va o'chirish,tranzaksiyalar,must,yes,no,soft delete
+Oflayn ishlash,sinxronizatsiya,must,guess,no,do'konda internet yomon bo'lishi mumkin
+Bulutga zaxira va boshqa telefonda tiklash,sinxronizatsiya,must,guess,no,
+Bo'sh holatlar (birinchi mijoz / birinchi yozuv),UX,must,yes,no,
+Telefon kontaktlaridan mijoz qo'shish,mijozlar,should,guess,no,
+Qaytarish muddati (due date),tranzaksiyalar,should,guess,no,
+Muddati o'tganlar ro'yxati,eslatmalar,should,guess,no,
+Telegram / WhatsApp orqali eslatma ulashish,eslatmalar,should,yes,no,tizimning share oynasi orqali
+Davr bo'yicha hisobot,hisobot,should,yes,no,
+PDF eksport,hisobot,should,guess,no,
+PIN kod qulf,xavfsizlik,should,guess,no,
+Chek rasmini biriktirish,tranzaksiyalar,should,guess,no,
+Mijozga qo'ng'iroq qilish tugmasi,mijozlar,should,guess,no,
+Avtomatik SMS eslatma,eslatmalar,could,guess,no,pullik SMS provayder kerak (rasmiy API)
+Mijoz uchun hisob-kitob veb sahifasi,ulashish,could,guess,no,
+Excel eksport,hisobot,could,guess,no,
+Yetkazib beruvchilar (berishim kerak) bo'limi,mijozlar,could,guess,no,
+Bir nechta do'kon,akkaunt,could,guess,no,
+Biometrik qulf (Face ID / barmoq izi),xavfsizlik,could,guess,no,
+PDAFTAR nomi logotipi va matnlari,brend,skip,yes,skip,asl ilovaga tegishli; /replica-brand o'z nomini beradi
+Asl ilovaning foydalanuvchilari va ma'lumotlari,ma'lumotlar,skip,yes,skip,ilovaga tegishli
+Bank yoki SMS provayder bilan hamkorlik shartnomalari,integratsiya,skip,guess,skip,hamkorlik ko'chirilmaydi; o'z rasmiy API ulanishimiz bo'ladi
