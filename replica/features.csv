@@ -1,33 +1,37 @@
 feature,area,priority,original,clone,notes
-Telefon raqam va SMS kod bilan kirish,onboarding,must,yes,no,portfolio uchun test rejimidagi OTP yetarli
-Do'kon profilini yaratish,onboarding,must,yes,no,
-Til tanlash (uz lotin / uz kirill / ru),onboarding,must,guess,no,
-Mijozlar ro'yxati balans bilan,mijozlar,must,yes,no,
-Jami olishim kerak / berishim kerak,mijozlar,must,yes,no,
-Mijoz qidirish,mijozlar,must,yes,no,
-Mijoz qo'shish va tahrirlash,mijozlar,must,yes,no,
-Qarz yozish (Berdim),tranzaksiyalar,must,yes,no,asosiy sikl
-To'lov yozish (Oldim),tranzaksiyalar,must,yes,no,
-Mijoz tranzaksiyalar tarixi,tranzaksiyalar,must,yes,no,
-Yozuvni tahrirlash va o'chirish,tranzaksiyalar,must,yes,no,soft delete
-Oflayn ishlash,sinxronizatsiya,must,guess,no,do'konda internet yomon bo'lishi mumkin
-Bulutga zaxira va boshqa telefonda tiklash,sinxronizatsiya,must,guess,no,
-Bo'sh holatlar (birinchi mijoz / birinchi yozuv),UX,must,yes,no,
-Telefon kontaktlaridan mijoz qo'shish,mijozlar,should,guess,no,
-Qaytarish muddati (due date),tranzaksiyalar,should,guess,no,
-Muddati o'tganlar ro'yxati,eslatmalar,should,guess,no,
-Telegram / WhatsApp orqali eslatma ulashish,eslatmalar,should,yes,no,tizimning share oynasi orqali
-Davr bo'yicha hisobot,hisobot,should,yes,no,
-PDF eksport,hisobot,should,guess,no,
-PIN kod qulf,xavfsizlik,should,guess,no,
-Chek rasmini biriktirish,tranzaksiyalar,should,guess,no,
-Mijozga qo'ng'iroq qilish tugmasi,mijozlar,should,guess,no,
-Avtomatik SMS eslatma,eslatmalar,could,guess,no,pullik SMS provayder kerak (rasmiy API)
+Telefon raqam va SMS kod bilan kirish,onboarding,must,yes,partial,ekran tayyor; demo kod 1234; haqiqiy SMS /replica-backend da
+Do'kon profilini yaratish,onboarding,must,yes,yes,S04
+Mijozlar ro'yxati balans bilan,mijozlar,must,yes,yes,S05 (skrinshot S05-mijozlar)
+Mijozlar / Ta'minotchilar tablari,mijozlar,must,yes,yes,S05 segment; skrinshotda uchinchi tab ham bor (xodimlar?)
+Jami olishim kerak / berishim kerak,mijozlar,must,yes,yes,
+Mijoz qidirish va saralash,mijozlar,must,yes,yes,ism yoki telefon; oxirgi / summa / ism
+Mijoz qo'shish va tahrirlash,mijozlar,must,yes,yes,dublikat raqam ogohlantirishi bilan
+Qarz yozish (Berdim),tranzaksiyalar,must,yes,yes,asosiy sikl: 3 bosish + summa
+To'lov yozish (Oldim),tranzaksiyalar,must,yes,yes,oldindan to'lov (manfiy balans) qo'llab-quvvatlanadi
+Mijoz tranzaksiyalar tarixi,tranzaksiyalar,must,yes,yes,har yozuvdan keyingi qoldiq bilan
+Yozuvni tahrirlash va o'chirish,tranzaksiyalar,must,yes,yes,soft delete
+PIN kod qulf,xavfsizlik,must,yes,yes,sharhda tilga olingan; SMS orqali PIN tiklash qo'shildi (sharhdagi shikoyatga javob)
+Oflayn ishlash,sinxronizatsiya,must,guess,yes,hamma ma'lumot telefonda (AsyncStorage)
+Bulutga zaxira va boshqa telefonda tiklash,sinxronizatsiya,must,guess,no,/replica-backend
+Bo'sh holatlar (birinchi mijoz / birinchi yozuv),UX,must,yes,yes,
+Avtomatik SMS eslatma,eslatmalar,must,yes,no,skrinshot S10: "Qarzdorga SMS o'zi boradi"; pullik SMS provayder kerak
+SMS tarixi (yuborildi / xato holati),eslatmalar,should,yes,no,skrinshot S10
+Qo'lda eslatma (SMS ilovasi / Telegram orqali ulashish),eslatmalar,should,guess,yes,matnni tahrirlash mumkin
+Qaytarish muddati (due date),tranzaksiyalar,should,guess,yes,tez tanlov: 3 kun / 1 hafta / 2 hafta / 1 oy
+Muddati o'tganlar ro'yxati,eslatmalar,should,guess,yes,Muddatlar tabi
+Hisobot: hozirgi holat va davr bo'yicha,hisobot,should,yes,yes,skrinshot S12: kunlik / oylik / yillik
+Hisobot: eng katta qarzdorlar / haqdorlar,hisobot,should,yes,yes,skrinshot S12: Qarzdorlar / Haqdorlar
+Kassa: kirim va chiqim (xarajatlar),kassa,should,yes,no,skrinshot S16
+Xodimlar va rollar (sotuvchi),jamoa,should,yes,no,skrinshot S17; ko'p foydalanuvchi = backend kerak
+Bir nechta valyuta (UZS / USD),hisobot,should,yes,no,skrinshot S12 da Valyuta tanlovi
+Mijozga qo'ng'iroq qilish tugmasi,mijozlar,should,guess,yes,
+Til tanlash (uz lotin / uz kirill / ru),onboarding,should,guess,no,hozir faqat o'zbek lotin
+Telefon kontaktlaridan mijoz qo'shish,mijozlar,could,guess,no,expo-contacts kerak
+PDF / Excel eksport,hisobot,could,guess,no,
+Chek rasmini biriktirish,tranzaksiyalar,could,guess,no,
 Mijoz uchun hisob-kitob veb sahifasi,ulashish,could,guess,no,
-Excel eksport,hisobot,could,guess,no,
-Yetkazib beruvchilar (berishim kerak) bo'limi,mijozlar,could,guess,no,
-Bir nechta do'kon,akkaunt,could,guess,no,
+Boshqa davlat raqamlari va valyutalari (RUB),onboarding,could,no,no,Play sharhida so'ralgan; aslida yo'q — farqlash imkoniyati
 Biometrik qulf (Face ID / barmoq izi),xavfsizlik,could,guess,no,
-PDAFTAR nomi logotipi va matnlari,brend,skip,yes,skip,asl ilovaga tegishli; /replica-brand o'z nomini beradi
+PDAFTAR nomi logotipi va matnlari,brend,skip,yes,skip,asl ilovaga tegishli; klon ishchi nomi Nasiyachi; /replica-brand
 Asl ilovaning foydalanuvchilari va ma'lumotlari,ma'lumotlar,skip,yes,skip,ilovaga tegishli
-Bank yoki SMS provayder bilan hamkorlik shartnomalari,integratsiya,skip,guess,skip,hamkorlik ko'chirilmaydi; o'z rasmiy API ulanishimiz bo'ladi
+Korporativ tarif va hamkorlik shartnomalari,biznes,skip,yes,skip,sharhdagi javobdan; ko'chirilmaydi

@@ -4,18 +4,33 @@ Doira (scope): do'kon egasi uchun mijozlar qarzini yozish, to'lovlarni qabul qil
 Kim uchun: portfolio loyihasi (shaxsiy namuna sifatida ko'rsatish uchun).
 Sana: 2026-11-06
 
-> **Muhim eslatma.** "PDAFTAR" ilovasining ochiq manbalari (sayt, App Store / Play Market sahifasi, yordam bo'limi) topilmadi.
-> Shuning uchun bu xarita **qarz daftari ilovalari toifasi**ning umumiy, keng tarqalgan funksiyalari asosida tuzildi.
-> Asl ilovaning havolasi berilsa, ekranlar va funksiyalar ro'yxati unga qarab aniqlashtiriladi (confidence ustunlari yangilanadi).
+> **Manbalar holati.** Do'kon sahifalari va pdaftar.uz bu sessiyadan ochilmadi (tarmoq ruxsati yo'q).
+> Foydalanuvchi Play Market'dan 5 ta skrinshot va 3 ta sharhni yubordi — quyidagi "yes" belgilari shularga asoslangan.
+> Qolgan qismlar qarz daftari ilovalari toifasidan taxmin ("guess").
 
 ## Manbalar
 
 | # | manba | URL | izoh |
 | --- | --- | --- | --- |
-| 1 | veb qidiruv "PDAFTAR ilova" | — | mos natija topilmadi |
-| 2 | App Store / Play Market sahifasi | **kerak** | foydalanuvchidan havola so'ralsin: skrinshotlar, tavsif, reytinglar |
-| 3 | foydalanuvchining o'z akkaunti | **ixtiyoriy** | ilovani o'zingiz ishlatib, ekranlarni `replica/screens/` ga skrinshot qilsangiz bo'ladi |
-| 4 | qarz daftari toifasidagi umumiy bilim | — | quyidagi xaritaning asosi; ishonch darajasi "medium" yoki "guess" |
+| 1 | App Store sahifasi | https://apps.apple.com/uz/app/pdaftar-qarz-daftari-nasiya/id6511237681 | sessiyadan ochilmadi |
+| 2 | Google Play sahifasi | https://play.google.com/store/apps/details?id=uz.app.pdaftaruz | ochilmadi; foydalanuvchi skrinshot va sharhlarni yubordi |
+| 3 | rasmiy sayt | https://pdaftar.uz/ | sessiyadan ochilmadi |
+| 4 | Play skrinshotlari (5 ta) | `replica/screens/` | S05 mijozlar, S10 SMS tarixi, S12 hisobot, S16 kassa, S17 xodimlar. Faqat solishtirish uchun, klonga kirmaydi |
+| 5 | Play sharhlari (3 ta, 2026 yil yanvar–fevral) | Google Play | Rossiya raqami va rubl so'ralgan; yangilanishdan keyin PIN ishlamay qolgan; "qulay va sodda" |
+
+### Skrinshotlardan topilganlar
+
+- **Qarz nazorati (S05):** sarlavhada do'kon nomi, 3 ta tab (Mijozlar, Ta'minotchilar, yana biri), qizil/yashil summalar, "Mijoz qo'shish" tugmasi.
+- **Avtomatik eslatma (S10):** "SMS tarixi" ekrani, filtr chiplar, har SMS kartada matn ("Hurmatli ..., ... do'konidan ... qarzingiz ... UZS") va "Yuborildi" belgisi.
+- **Hisobotlar (S12):** Mijoz / Ta'minotchi statistikasi, valyuta tanlovi (UZS), umumiy va kirim balansi, Qarzdorlar / Haqdorlar / Mijoz tarixi, kunlik / oylik / yillik.
+- **Kassa (S16):** Xarajatlar / Kirimlar tablari, "Mijozdan kirim", "Pul tushumi" yozuvlari, umumiy balans.
+- **Jamoa (S17):** "Sotuvchilar yuritadi — siz nazorat qilasiz": xodimlar ro'yxati, xodim qo'shish, rol (sotuvchi).
+
+### Sharhlardan xulosa
+
+- Faqat +998 raqam va so'm — boshqa davlatlar uchun yo'q (farqlash imkoniyati).
+- PIN bilan bog'liq muammo → klonda PIN'ni SMS orqali tiklash bor.
+- Ishlab chiquvchi korporativ tarif taklif qiladi → pullik reja mavjud.
 
 ## Asosiy sikl (core loop)
 
@@ -39,6 +54,8 @@ Do'kon egasi mijozni tanlaydi, "Qarz berdim" yoki "To'lov oldim" deb summani yoz
 | S12 | Hisobotlar | tab | davr bo'yicha jami berilgan / olingan, mijoz bo'yicha, PDF / Excel eksport | sana oralig'i tanlash, statistika kartalari, eksport tugmasi | bo'sh, to'ldirilgan, eksport tayyorlanmoqda, xato |
 | S13 | Sozlamalar | tab | profil, til, PIN qulf, zaxira / sinxronizatsiya holati, chiqish | settings list, switch | default |
 | S14 | PIN qulf ekrani | ilova ochilganda (yoqilgan bo'lsa) | maxfiylik | PIN pad, biometrik tugma | default, noto'g'ri PIN, ko'p urinish |
+| S16 | Kassa (kirim / chiqim) | tab | do'kon xarajatlari va kirimlari, mijozdan kirim avtomatik tushadi | Xarajatlar / Kirimlar segment, list, FAB | bo'sh, to'ldirilgan |
+| S17 | Xodimlar | sozlamalar yoki tab | sotuvchilarni qo'shish, rol berish | xodim list item, rol tanlash | bo'sh, to'ldirilgan |
 | S15 | Mijoz uchun hisob-kitob sahifasi | eslatmadagi havola (veb) | mijoz o'z qarzi va tarixini ko'radi (faqat o'qish) | oddiy veb sahifa | default, havola muddati o'tgan |
 
 ## Oqimlar (flows)
@@ -138,7 +155,7 @@ Balans = sum(credit) - sum(payment). Musbat = mijoz qarzdor, manfiy = oldindan t
 
 ## Funksiyalar matritsasi
 
-`features.csv` ga qarang. Must: 14, should: 9, could: 6, skip: 3.
+`features.csv` ga qarang. Must: 16, should: 11, could: 6, skip: 3.
 
 ## Doiradan tashqari (klon qilinmaydi yoki qilinmasligi kerak)
 
@@ -149,7 +166,7 @@ Balans = sum(credit) - sum(payment). Musbat = mijoz qarzdor, manfiy = oldindan t
 
 ## Hajm
 
-Ekranlar: 15, oqimlar: 8, entity: 6.
+Ekranlar: 17, oqimlar: 8, entity: 6 (+ Kassa yozuvi, Xodim — backend bilan).
 
 Qiyin qismlar:
 1. **Oflayn ishlash + sinxronizatsiya** — do'konda internet yomon; yozuvlar telefonda saqlanib, keyin serverga yuborilishi va bir nechta qurilmada to'qnashuvsiz birlashishi kerak.
@@ -157,3 +174,9 @@ Qiyin qismlar:
 3. **Pul bilan aniq ishlash** — summa butun son sifatida, ming ajratgichlar, PDF hisobotda to'g'ri yig'indilar, o'chirilgan / tahrirlangan yozuvlar tarixi.
 
 O'lcham: **M** (bir necha hafta) — iOS + Android uchun bitta kod bazasi (masalan React Native / Expo) bilan. Portfolio uchun avval F01–F04 ni ishlaydigan holatga keltirish (S, bir hafta oxiri) tavsiya etiladi.
+
+## Qurilish holati (2026-11-07)
+
+Klon: `mobile/` (Expo, iOS + Android, ishchi nom **Nasiyachi**).
+Tayyor: S01–S09, S10 (qo'lda eslatma), S11, S12, S13, S14. Ma'lumot faqat telefonda.
+Qolgan: haqiqiy SMS kirish, avtomatik SMS, bulut zaxira, kassa, xodimlar, valyuta, ru/kirill tili.
