@@ -3,6 +3,7 @@ import { StatusBar } from 'expo-status-bar';
 import { ActivityIndicator, View } from 'react-native';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 import { useStore } from '../lib/store';
+import { ConfirmHost } from '../ui/ConfirmHost';
 import { colors } from '../ui/theme';
 
 export default function RootLayout() {
@@ -41,6 +42,7 @@ export default function RootLayout() {
           <Stack.Screen name="tx/[id]" options={{ title: 'Yozuv' }} />
         </Stack>
       )}
+      <ConfirmHost />
     </SafeAreaProvider>
   );
 }

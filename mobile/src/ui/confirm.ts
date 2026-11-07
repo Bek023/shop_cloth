@@ -1,13 +1,17 @@
-import { Alert, Platform } from 'react-native';
+import { create } from 'zustand';
 
-/** Destructive confirmation. Alert.alert has no buttons on web, so use window.confirm there. */
+type Pending = { title: string; message: string; okLabel: string; onOk: () => void };
+
+/**
+ * In-app confirmation dialog state. Rendered by <ConfirmHost /> in the root layout.
+ * Used instead of Alert.alert / window.confirm so it looks the same on iOS, Android
+ * and web, and works where browser dialogs are blocked.
+ */
+export const useConfirm = create<{ pending: Pending | null; close: () => void }>()((set) => ({
+  pending: null,
+  close: () => set({ pending: null }),
+}));
+
 export function confirm(title: string, message: string, okLabel: string, onOk: () => void) {
-  if (Platform.OS === 'web') {
-    if (globalThis.confirm?.(`${title}\n\n${message}`)) onOk();
-    return;
-  }
-  Alert.alert(title, message, [
-    { text: 'Bekor qilish', style: 'cancel' },
-    { text: okLabel, style: 'destructive', onPress: onOk },
-  ]);
+  useConfirm.setState({ pending: { title, message, okLabel, onOk } });
 }

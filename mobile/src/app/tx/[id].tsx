@@ -57,6 +57,7 @@ export default function TxDetail() {
           <Button
             variant="danger"
             title="O‘chirish"
+            testID="tx-delete"
             onPress={() =>
               confirm('Yozuv o‘chirilsinmi?', `${formatMoney(tx.amount)} — ${contact.name}`, 'O‘chirish', () => {
                 deleteTx(tx.id);

@@ -26,6 +26,7 @@ export default function Remind() {
     [contact, shop, summary],
   );
   const [text, setText] = useState(initial);
+  const [notice, setNotice] = useState<string>();
 
   if (!contact || !summary || summary.balance <= 0) return <Redirect href="/(tabs)" />;
 
@@ -34,12 +35,27 @@ export default function Remind() {
     Linking.openURL(`sms:+998${contact.phone}${sep}body=${encodeURIComponent(text)}`);
   };
 
+  // Share sheet is missing in some browsers; fall back to copying the text.
+  const share = async () => {
+    try {
+      if (Platform.OS === 'web' && !(globalThis.navigator as Navigator | undefined)?.share) throw new Error('no share');
+      await Share.share({ message: text });
+    } catch {
+      try {
+        await globalThis.navigator?.clipboard?.writeText(text);
+        setNotice('Matn nusxalandi. Telegram yoki boshqa ilovaga joylang.');
+      } catch {
+        setNotice('Matnni belgilab, o‘zingiz nusxalang.');
+      }
+    }
+  };
+
   return (
     <Screen
       footer={
         <>
           {contact.phone ? <Button title="SMS orqali yuborish" onPress={sms} /> : null}
-          <Button variant="secondary" title="Telegram / boshqa ilova orqali" onPress={() => Share.share({ message: text })} />
+          <Button variant="secondary" title="Telegram / boshqa ilova orqali" onPress={share} />
         </>
       }
     >
@@ -62,6 +78,11 @@ export default function Remind() {
           textAlignVertical: 'top',
         }}
       />
+      {notice ? (
+        <Card>
+          <Text style={styles.muted}>{notice}</Text>
+        </Card>
+      ) : null}
       {!contact.phone ? (
         <Card>
           <Text style={styles.muted}>Bu kontaktda telefon raqam yo‘q. SMS uchun avval raqam qo‘shing.</Text>
