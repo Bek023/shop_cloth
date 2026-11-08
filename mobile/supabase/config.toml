@@ -1,0 +1,16 @@
+# Supabase CLI settings. Run `npx supabase link --project-ref <your-ref>` once; the CLI fills in defaults.
+project_id = "nasiyachi"
+
+[auth]
+site_url = "nasiyachi://"
+
+[auth.sms]
+enable_signup = true
+enable_confirmations = true
+
+# Telegram and pg_cron do not send a Supabase JWT; both functions check their own secret header.
+[functions.telegram-bot]
+verify_jwt = false
+
+[functions.daily-reminders]
+verify_jwt = false

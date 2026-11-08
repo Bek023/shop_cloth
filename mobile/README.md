@@ -12,7 +12,14 @@ Do'kon egalari uchun mijozlar va ta'minotchilar bilan hisob-kitob ilovasi. Portf
 - Qaytarish muddati, "Muddatlar" tabi (muddati o'tgan, bugun, shu hafta)
 - Hisobot: olishim / berishim kerak, kun / oy / yil bo'yicha, eng katta qarzdorlar
 - Eslatma: tayyor matn, telefonning SMS ilovasi yoki Telegram orqali yuborish
-- Internetsiz ishlaydi: barcha ma'lumot telefonda saqlanadi
+- Internetsiz ishlaydi: avval telefonga yoziladi, internet bo'lganda bulutga sinxronlanadi
+- Telegram bot: mijozga avtomatik eslatma, `/qarzim` bilan qarzini ko'rish, egasiga kunlik hisobot
+
+## Ikki rejim
+
+- **Demo** (kalitlarsiz): hamma narsa telefonda, SMS kod `1234`.
+- **Server** (`.env.local` da Supabase kalitlari bilan): haqiqiy SMS kirish, bulutga zaxira, Telegram.
+  Sozlash yo'riqnomasi: `../replica/backend.md`.
 
 ## Ishga tushirish
 
@@ -28,15 +35,18 @@ npx expo start        # QR kodni Expo Go ilovasi bilan skanerlang
 npm test              # hisob-kitob mantig'i (node:test)
 npm run typecheck     # TypeScript
 npm run e2e           # brauzer versiyasini yig'ib, asosiy oqimni Playwright bilan bosib chiqadi
+npm run test:db       # migratsiyalar va RLS: vaqtinchalik lokal Postgres'da
+npm run check:functions  # Edge Functions'ni Deno bilan tip tekshiruvi
 ```
 
 ## Tuzilishi
 
 ```
 src/app/        ekranlar (Expo Router: har fayl — bitta ekran)
-src/lib/        ledger.ts (balans, muddat, hisobot mantig'i), money.ts, dates.ts, store.ts (zustand + AsyncStorage)
+src/lib/        ledger.ts (balans, muddat), store.ts (zustand + AsyncStorage), sync.ts, auth.ts, backend.ts
 src/ui/         komponentlar va ranglar (theme.ts)
 e2e/            Playwright smoke test
+supabase/       migrations/ (sxema, RLS, RPC), functions/ (telegram-bot, daily-reminders), tests/
 ```
 
 Summalar doim butun son (so'm) sifatida saqlanadi, kasr son ishlatilmaydi.

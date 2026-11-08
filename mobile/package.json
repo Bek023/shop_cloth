@@ -4,6 +4,7 @@
   "main": "expo-router/entry",
   "dependencies": {
     "@react-native-async-storage/async-storage": "2.2.0",
+    "@supabase/supabase-js": "^2.119.0",
     "expo": "~58.0.23",
     "expo-constants": "~58.0.15",
     "expo-linking": "~58.0.16",
@@ -27,9 +28,11 @@
     "ios": "expo start --ios",
     "web": "expo start --web",
     "typecheck": "tsc --noEmit",
-    "test": "node --test --experimental-strip-types src/lib/*.test.ts",
+    "test": "node --test --experimental-strip-types src/lib/*.test.ts supabase/functions/_shared/*.test.ts",
     "build:web": "EXPO_OFFLINE=1 expo export --platform web",
-    "e2e": "npm run build:web && node e2e/web-smoke.js dist e2e-shots"
+    "e2e": "npm run build:web && node e2e/web-smoke.js dist e2e-shots",
+    "test:db": "supabase/tests/run.sh",
+    "check:functions": "cd supabase/functions && npx --yes deno@2.5.6 check telegram-bot/index.ts daily-reminders/index.ts"
   },
   "private": true
 }

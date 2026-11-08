@@ -4,7 +4,7 @@ import { FlatList, Pressable, StyleSheet, Text, TextInput, View } from 'react-na
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { totals, type ContactKind } from '../../lib/ledger';
 import { formatMoney } from '../../lib/money';
-import { useStore, useSummaries } from '../../lib/store';
+import { useContacts, useSummaries } from '../../lib/store';
 import { Button, Chip, EmptyState, Segmented } from '../../ui/kit';
 import { ContactRow } from '../../ui/rows';
 import { colors, font, radius, space } from '../../ui/theme';
@@ -12,7 +12,7 @@ import { colors, font, radius, space } from '../../ui/theme';
 type Sort = 'recent' | 'amount' | 'name';
 
 export default function Ledger() {
-  const contacts = useStore((s) => s.contacts);
+  const contacts = useContacts();
   const summaries = useSummaries();
   const [kind, setKind] = useState<ContactKind>('customer');
   const [query, setQuery] = useState('');

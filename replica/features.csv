@@ -1,5 +1,5 @@
 feature,area,priority,original,clone,notes
-Telefon raqam va SMS kod bilan kirish,onboarding,must,yes,partial,ekran tayyor; demo kod 1234; haqiqiy SMS /replica-backend da
+Telefon raqam va SMS kod bilan kirish,onboarding,must,yes,yes,Supabase phone OTP; SMS provayder yoki test raqam foydalanuvchi sozlaydi; kalitsiz demo rejim
 Do'kon profilini yaratish,onboarding,must,yes,yes,S04
 Mijozlar ro'yxati balans bilan,mijozlar,must,yes,yes,S05 (skrinshot S05-mijozlar)
 Mijozlar / Ta'minotchilar tablari,mijozlar,must,yes,yes,S05 segment; skrinshotda uchinchi tab ham bor (xodimlar?)
@@ -12,10 +12,10 @@ Mijoz tranzaksiyalar tarixi,tranzaksiyalar,must,yes,yes,har yozuvdan keyingi qol
 Yozuvni tahrirlash va o'chirish,tranzaksiyalar,must,yes,yes,soft delete
 PIN kod qulf,xavfsizlik,must,yes,yes,sharhda tilga olingan; SMS orqali PIN tiklash qo'shildi (sharhdagi shikoyatga javob)
 Oflayn ishlash,sinxronizatsiya,must,guess,yes,hamma ma'lumot telefonda (AsyncStorage)
-Bulutga zaxira va boshqa telefonda tiklash,sinxronizatsiya,must,guess,no,/replica-backend
+Bulutga zaxira va boshqa telefonda tiklash,sinxronizatsiya,must,guess,yes,Supabase + oflayn sinxronizatsiya; jonli serverda hali sinalmagan
 Bo'sh holatlar (birinchi mijoz / birinchi yozuv),UX,must,yes,yes,
-Avtomatik SMS eslatma,eslatmalar,must,yes,no,skrinshot S10: "Qarzdorga SMS o'zi boradi"; pullik SMS provayder kerak
-SMS tarixi (yuborildi / xato holati),eslatmalar,should,yes,no,skrinshot S10
+Avtomatik eslatma,eslatmalar,must,yes,yes,original SMS yuboradi; klon Telegram bot orqali bepul (muddatdan oldin / kuni / o'tgach)
+Eslatmalar tarixi (yuborildi / xato holati),eslatmalar,should,yes,partial,serverda reminders jadvali bor; ilovada ekran yo'q
 Qo'lda eslatma (SMS ilovasi / Telegram orqali ulashish),eslatmalar,should,guess,yes,matnni tahrirlash mumkin
 Qaytarish muddati (due date),tranzaksiyalar,should,guess,yes,tez tanlov: 3 kun / 1 hafta / 2 hafta / 1 oy
 Muddati o'tganlar ro'yxati,eslatmalar,should,guess,yes,Muddatlar tabi
@@ -35,3 +35,6 @@ Biometrik qulf (Face ID / barmoq izi),xavfsizlik,could,guess,no,
 PDAFTAR nomi logotipi va matnlari,brend,skip,yes,skip,asl ilovaga tegishli; klon ishchi nomi Nasiyachi; /replica-brand
 Asl ilovaning foydalanuvchilari va ma'lumotlari,ma'lumotlar,skip,yes,skip,ilovaga tegishli
 Korporativ tarif va hamkorlik shartnomalari,biznes,skip,yes,skip,sharhdagi javobdan; ko'chirilmaydi
+Mijoz botda qarzini o'zi ko'radi (/qarzim),eslatmalar,could,no,yes,originalda yo'q; farqlovchi imkoniyat
+Do'kon egasiga kunlik hisobot Telegram'da,eslatmalar,could,no,yes,originalda yo'q; farqlovchi imkoniyat
+Akkauntni butunlay o'chirish,akkaunt,must,guess,yes,App Store talabi

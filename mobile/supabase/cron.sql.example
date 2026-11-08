@@ -1,0 +1,22 @@
+-- Schedules the daily reminder job: every day at 09:00 Tashkent time (04:00 UTC).
+-- Run once in the Supabase SQL editor after deploying the functions.
+-- Replace <project-ref>. Store the cron secret in Vault first (Dashboard > Project Settings > Vault)
+-- under the name 'cron_secret', with the same value as the CRON_SECRET function secret.
+
+create extension if not exists pg_cron;
+create extension if not exists pg_net;
+
+select cron.schedule(
+  'nasiyachi-daily-reminders',
+  '0 4 * * *',
+  $$
+  select net.http_post(
+    url := 'https://<project-ref>.supabase.co/functions/v1/daily-reminders',
+    headers := jsonb_build_object(
+      'content-type', 'application/json',
+      'x-cron-secret', (select decrypted_secret from vault.decrypted_secrets where name = 'cron_secret')
+    ),
+    body := '{}'::jsonb
+  );
+  $$
+);

@@ -1,12 +1,12 @@
 import { Redirect, router, Stack, useLocalSearchParams } from 'expo-router';
 import type { TxType } from '../../../lib/ledger';
-import { useStore, useSummaries } from '../../../lib/store';
+import { useContact, useStore, useSummaries } from '../../../lib/store';
 import { TxForm } from '../../../ui/TxForm';
 
 export default function AddTx() {
   const { id, type: rawType } = useLocalSearchParams<{ id: string; type?: TxType }>();
   const type: TxType = rawType === 'got' ? 'got' : 'gave';
-  const contact = useStore((s) => s.contacts[id]);
+  const contact = useContact(id);
   const addTx = useStore((s) => s.addTx);
   const balance = useSummaries()[id]?.balance ?? 0;
 

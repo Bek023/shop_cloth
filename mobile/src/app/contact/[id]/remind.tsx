@@ -1,10 +1,11 @@
 import { Redirect, useLocalSearchParams } from 'expo-router';
 import { useMemo, useState } from 'react';
-import { Linking, Platform, Share, Text, TextInput } from 'react-native';
+import { Text, TextInput } from 'react-native';
 import { formatDate } from '../../../lib/dates';
 import { formatMoney } from '../../../lib/money';
-import { useStore, useSummaries } from '../../../lib/store';
+import { useContact, useStore, useSummaries } from '../../../lib/store';
 import { Button, Card, Screen, styles } from '../../../ui/kit';
+import { openSms, shareText } from '../../../ui/share';
 import { colors, font, radius, space } from '../../../ui/theme';
 
 export function reminderText(p: { name: string; shop: string; amount: number; due?: string }) {
@@ -18,7 +19,7 @@ export function reminderText(p: { name: string; shop: string; amount: number; du
  */
 export default function Remind() {
   const { id } = useLocalSearchParams<{ id: string }>();
-  const contact = useStore((s) => s.contacts[id]);
+  const contact = useContact(id);
   const shop = useStore((s) => s.profile?.shopName ?? '');
   const summary = useSummaries()[id];
   const initial = useMemo(
@@ -30,31 +31,13 @@ export default function Remind() {
 
   if (!contact || !summary || summary.balance <= 0) return <Redirect href="/(tabs)" />;
 
-  const sms = () => {
-    const sep = Platform.OS === 'ios' ? '&' : '?';
-    Linking.openURL(`sms:+998${contact.phone}${sep}body=${encodeURIComponent(text)}`);
-  };
-
-  // Share sheet is missing in some browsers; fall back to copying the text.
-  const share = async () => {
-    try {
-      if (Platform.OS === 'web' && !(globalThis.navigator as Navigator | undefined)?.share) throw new Error('no share');
-      await Share.share({ message: text });
-    } catch {
-      try {
-        await globalThis.navigator?.clipboard?.writeText(text);
-        setNotice('Matn nusxalandi. Telegram yoki boshqa ilovaga joylang.');
-      } catch {
-        setNotice('Matnni belgilab, o‘zingiz nusxalang.');
-      }
-    }
-  };
+  const share = async () => setNotice(await shareText(text));
 
   return (
     <Screen
       footer={
         <>
-          {contact.phone ? <Button title="SMS orqali yuborish" onPress={sms} /> : null}
+          {contact.phone ? <Button title="SMS orqali yuborish" onPress={() => openSms(contact.phone!, text)} /> : null}
           <Button variant="secondary" title="Telegram / boshqa ilova orqali" onPress={share} />
         </>
       }

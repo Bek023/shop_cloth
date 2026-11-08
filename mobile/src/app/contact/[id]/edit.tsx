@@ -1,10 +1,10 @@
 import { Redirect, router, useLocalSearchParams } from 'expo-router';
-import { useStore } from '../../../lib/store';
+import { useContact, useStore } from '../../../lib/store';
 import { ContactForm } from '../../../ui/ContactForm';
 
 export default function EditContact() {
   const { id } = useLocalSearchParams<{ id: string }>();
-  const contact = useStore((s) => s.contacts[id]);
+  const contact = useContact(id);
   const updateContact = useStore((s) => s.updateContact);
 
   if (!contact) return <Redirect href="/(tabs)" />;

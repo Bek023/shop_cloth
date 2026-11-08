@@ -3,11 +3,13 @@ import { StatusBar } from 'expo-status-bar';
 import { ActivityIndicator, View } from 'react-native';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 import { useStore } from '../lib/store';
+import { useAutoSync } from '../lib/sync';
 import { ConfirmHost } from '../ui/ConfirmHost';
 import { colors } from '../ui/theme';
 
 export default function RootLayout() {
   const hydrated = useStore((s) => s.hydrated);
+  useAutoSync();
 
   return (
     <SafeAreaProvider>
@@ -39,6 +41,8 @@ export default function RootLayout() {
           <Stack.Screen name="contact/[id]/edit" options={{ title: 'Tahrirlash', presentation: 'modal' }} />
           <Stack.Screen name="contact/[id]/tx" options={{ title: '', presentation: 'modal' }} />
           <Stack.Screen name="contact/[id]/remind" options={{ title: 'Eslatma yuborish', presentation: 'modal' }} />
+          <Stack.Screen name="contact/[id]/telegram" options={{ title: 'Telegram', presentation: 'modal' }} />
+          <Stack.Screen name="telegram" options={{ title: 'Telegram', presentation: 'modal' }} />
           <Stack.Screen name="tx/[id]" options={{ title: 'Yozuv' }} />
         </Stack>
       )}

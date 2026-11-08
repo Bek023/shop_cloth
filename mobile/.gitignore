@@ -40,3 +40,10 @@ yarn-error.*
 /ios
 /android
 e2e-shots/
+
+# secrets
+.env
+.env.*
+!.env.example
+supabase/functions/.env
+supabase/.temp/

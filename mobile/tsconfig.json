@@ -3,5 +3,5 @@
   "compilerOptions": {
     "strict": true
   },
-  "exclude": ["node_modules", "src/**/*.test.ts"]
+  "exclude": ["node_modules", "supabase", "src/**/*.test.ts"]
 }

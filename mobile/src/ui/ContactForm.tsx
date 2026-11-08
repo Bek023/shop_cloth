@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { Text } from 'react-native';
 import type { Contact, ContactKind } from '../lib/ledger';
 import { formatPhone, isValidPhone, parsePhone } from '../lib/money';
-import { useStore } from '../lib/store';
+import { useContacts } from '../lib/store';
 import { Button, Field, Screen, Segmented, styles } from './kit';
 import { colors } from './theme';
 
@@ -19,7 +19,7 @@ export function ContactForm({
   submitLabel: string;
   onSubmit: (d: ContactDraft) => void;
 }) {
-  const contacts = useStore((s) => s.contacts);
+  const contacts = useContacts();
   const [kind, setKind] = useState<ContactKind>(initial.kind);
   const [name, setName] = useState(initial.name);
   const [phone, setPhone] = useState(initial.phone ?? '');

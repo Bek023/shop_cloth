@@ -3,7 +3,7 @@ import { useState } from 'react';
 import { Text, View } from 'react-native';
 import { formatDate, formatDateTime } from '../../lib/dates';
 import { formatMoney } from '../../lib/money';
-import { useStore, useSummaries } from '../../lib/store';
+import { useContact, useStore, useSummaries } from '../../lib/store';
 import { confirm } from '../../ui/confirm';
 import { Button, Card, Screen, styles } from '../../ui/kit';
 import { TxForm } from '../../ui/TxForm';
@@ -21,7 +21,7 @@ function Row({ label, value }: { label: string; value: string }) {
 export default function TxDetail() {
   const { id } = useLocalSearchParams<{ id: string }>();
   const tx = useStore((s) => s.txs[id]);
-  const contact = useStore((s) => (tx ? s.contacts[tx.contactId] : undefined));
+  const contact = useContact(tx?.contactId);
   const updateTx = useStore((s) => s.updateTx);
   const deleteTx = useStore((s) => s.deleteTx);
   const balance = useSummaries()[tx?.contactId ?? '']?.balance ?? 0;

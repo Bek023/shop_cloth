@@ -2,7 +2,7 @@ import { useMemo, useState } from 'react';
 import { Text, View } from 'react-native';
 import { periodStats, totals, type ContactKind, type Period } from '../../lib/ledger';
 import { formatMoney } from '../../lib/money';
-import { useStore, useSummaries } from '../../lib/store';
+import { useContacts, useStore, useSummaries } from '../../lib/store';
 import { Card, Chip, Screen, Segmented, SectionTitle, styles } from '../../ui/kit';
 import { BalanceText } from '../../ui/rows';
 import { colors, font, space } from '../../ui/theme';
@@ -23,7 +23,7 @@ function periodFor(range: Range, now = new Date()): Period {
 }
 
 export default function Reports() {
-  const contacts = useStore((s) => s.contacts);
+  const contacts = useContacts();
   const txs = useStore((s) => s.txs);
   const summaries = useSummaries();
   const [kind, setKind] = useState<ContactKind>('customer');

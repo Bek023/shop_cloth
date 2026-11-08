@@ -13,6 +13,7 @@ export type Contact = {
   note?: string;
   createdAt: string;
   updatedAt: string;
+  deletedAt?: string; // soft delete so other devices learn about it
 };
 
 export type Tx = {
@@ -119,6 +120,8 @@ export function dueStatus(dueDate: string, today = todayISODate()): DueStatus {
   return 'later';
 }
 
-export function newId(): string {
-  return Date.now().toString(36) + Math.random().toString(36).slice(2, 8);
+export function liveContacts(contacts: Record<string, Contact>): Record<string, Contact> {
+  const out: Record<string, Contact> = {};
+  for (const [id, c] of Object.entries(contacts)) if (!c.deletedAt) out[id] = c;
+  return out;
 }

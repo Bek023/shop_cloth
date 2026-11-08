@@ -1,10 +1,12 @@
 import { Redirect, router, Stack, useLocalSearchParams } from 'expo-router';
-import { useMemo } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { FlatList, Linking, Pressable, StyleSheet, Text, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
+import { isTelegramLinked } from '../../../lib/auth';
+import { backendEnabled, TELEGRAM_BOT } from '../../../lib/backend';
 import { history } from '../../../lib/ledger';
 import { formatMoney, formatPhone } from '../../../lib/money';
-import { useStore, useSummaries } from '../../../lib/store';
+import { useContact, useStore, useSummaries } from '../../../lib/store';
 import { confirm } from '../../../ui/confirm';
 import { Avatar, Button, EmptyState, styles } from '../../../ui/kit';
 import { balanceLabel, DueBadge, TxRow } from '../../../ui/rows';
@@ -12,11 +14,17 @@ import { colors, font, radius, space } from '../../../ui/theme';
 
 export default function ContactScreen() {
   const { id } = useLocalSearchParams<{ id: string }>();
-  const contact = useStore((s) => s.contacts[id]);
+  const contact = useContact(id);
   const txs = useStore((s) => s.txs);
   const deleteContact = useStore((s) => s.deleteContact);
   const summary = useSummaries()[id];
   const rows = useMemo(() => history(txs, id), [txs, id]);
+  const [linked, setLinked] = useState(false);
+  const telegramAvailable = backendEnabled && !!TELEGRAM_BOT;
+
+  useEffect(() => {
+    if (telegramAvailable) isTelegramLinked(id).then(setLinked).catch(() => undefined);
+  }, [id, telegramAvailable]);
 
   if (!contact) return <Redirect href="/(tabs)" />;
   const balance = summary?.balance ?? 0;
@@ -86,6 +94,13 @@ export default function ContactScreen() {
                 <Button variant="secondary" title="Eslatma" style={{ flex: 1 }} onPress={() => router.push(`/contact/${id}/remind`)} />
               ) : null}
             </View>
+            {telegramAvailable && contact.kind === 'customer' ? (
+              linked ? (
+                <Text style={[styles.muted, { color: colors.got }]}>✓ Telegram ulangan: eslatmalar avtomatik boradi</Text>
+              ) : (
+                <Button variant="ghost" title="Telegram'ga ulash (avtomatik eslatma)" onPress={() => router.push(`/contact/${id}/telegram`)} />
+              )
+            ) : null}
             {rows.length > 0 ? <Text style={[styles.muted, { marginTop: space.sm }]}>Tarix · {rows.length} ta yozuv</Text> : null}
           </View>
         }

@@ -1,7 +1,12 @@
 import { router } from 'expo-router';
+import { useState } from 'react';
 import { Pressable, StyleSheet, Text, View } from 'react-native';
+import { deleteAccount, signOut } from '../../lib/auth';
+import { backendEnabled, friendlyError, TELEGRAM_BOT } from '../../lib/backend';
+import { formatDateTime } from '../../lib/dates';
 import { formatPhone } from '../../lib/money';
-import { useStore } from '../../lib/store';
+import { useContacts, useStore } from '../../lib/store';
+import { syncNow } from '../../lib/sync';
 import { confirm } from '../../ui/confirm';
 import { Card, Screen, SectionTitle, styles } from '../../ui/kit';
 import { APP_NAME, colors, font, space } from '../../ui/theme';
@@ -16,10 +21,27 @@ function Item({ label, value, onPress, danger }: { label: string; value?: string
 }
 
 export default function Settings() {
-  const profile = useStore((s) => s.profile);
-  const pin = useStore((s) => s.pin);
-  const contactCount = useStore((s) => Object.keys(s.contacts).length);
-  const setPin = useStore((s) => s.setPin);
+  const profile = useStore((st) => st.profile);
+  const pin = useStore((st) => st.pin);
+  const setPin = useStore((st) => st.setPin);
+  const syncing = useStore((st) => st.syncing);
+  const syncError = useStore((st) => st.syncError);
+  const lastSyncAt = useStore((st) => st.lastSyncAt);
+  const pending = useStore((st) => Object.keys(st.dirty).length);
+  const contactCount = Object.keys(useContacts()).length;
+  const [error, setError] = useState<string>();
+
+  const syncLabel = !backendEnabled
+    ? 'Faqat shu telefonda (demo rejim)'
+    : syncing
+      ? 'Sinxronlanmoqda…'
+      : syncError
+        ? 'Sinxronlab bo‘lmadi. Internetni tekshiring.'
+        : pending > 0
+          ? `${pending} ta o‘zgarish yuborilmagan`
+          : lastSyncAt
+            ? `Bulutda saqlangan · ${formatDateTime(lastSyncAt)}`
+            : 'Hali sinxronlanmagan';
 
   return (
     <Screen edges={[]}>
@@ -29,6 +51,20 @@ export default function Settings() {
         <Item label="Telefon" value={profile ? formatPhone(profile.phone) : ''} />
         <Item label="Kontaktlar" value={String(contactCount)} />
       </Card>
+
+      <SectionTitle>Ma’lumotlar</SectionTitle>
+      <Card style={s.group}>
+        <Item label="Saqlash" value={syncLabel} onPress={backendEnabled ? () => syncNow() : undefined} />
+      </Card>
+
+      {backendEnabled && TELEGRAM_BOT ? (
+        <>
+          <SectionTitle>Telegram</SectionTitle>
+          <Card style={s.group}>
+            <Item label="Kunlik hisobotni Telegram’da olish" value="Har kuni 9:00 da muddati kelgan qarzlar" onPress={() => router.push('/telegram')} />
+          </Card>
+        </>
+      ) : null}
 
       <SectionTitle>Xavfsizlik</SectionTitle>
       <Card style={s.group}>
@@ -41,31 +77,52 @@ export default function Settings() {
         ) : null}
       </Card>
 
-      <SectionTitle>Ma’lumotlar</SectionTitle>
-      <Card style={s.group}>
-        <Item label="Saqlash joyi" value="Faqat shu telefonda (bulutga zaxira keyingi bosqichda)" />
-      </Card>
-
       <Card style={s.group}>
         <Item
-          label="Chiqish va ma’lumotlarni o‘chirish"
+          label={backendEnabled ? 'Chiqish' : 'Chiqish va ma’lumotlarni o‘chirish'}
           danger
           onPress={() =>
             confirm(
               'Chiqilsinmi?',
-              'Hozircha ma’lumotlar faqat shu telefonda. Chiqsangiz, barcha mijozlar va yozuvlar o‘chadi.',
+              backendEnabled
+                ? pending > 0
+                  ? `${pending} ta o‘zgarish hali bulutga yuborilmagan va yo‘qoladi. Avval internetga ulaning.`
+                  : 'Ma’lumotlar bulutda qoladi. Qayta kirsangiz, hammasi qaytadi.'
+                : 'Demo rejimda ma’lumotlar faqat shu telefonda. Chiqsangiz, barcha mijozlar va yozuvlar o‘chadi.',
               'Chiqish',
-              () => {
-                useStore.getState().signOut();
+              async () => {
+                await signOut();
                 router.replace('/welcome');
               },
             )
           }
         />
+        {backendEnabled ? (
+          <Item
+            label="Akkauntni butunlay o‘chirish"
+            danger
+            onPress={() =>
+              confirm(
+                'Akkaunt o‘chirilsinmi?',
+                'Do‘kon, barcha mijozlar, yozuvlar va Telegram ulanishlari serverdan butunlay o‘chiriladi. Buni qaytarib bo‘lmaydi.',
+                'O‘chirish',
+                async () => {
+                  try {
+                    await deleteAccount();
+                    router.replace('/welcome');
+                  } catch (e) {
+                    setError(friendlyError(e));
+                  }
+                },
+              )
+            }
+          />
+        ) : null}
       </Card>
+      {error ? <Text style={{ color: colors.gave }}>{error}</Text> : null}
 
       <View style={{ alignItems: 'center', marginTop: space.lg }}>
-        <Text style={[styles.muted, { fontSize: font.sm }]}>{APP_NAME} · 1.0.0</Text>
+        <Text style={[styles.muted, { fontSize: font.sm }]}>{APP_NAME} · 1.1.0</Text>
       </View>
     </Screen>
   );

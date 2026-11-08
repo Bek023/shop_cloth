@@ -2,7 +2,7 @@ import { router } from 'expo-router';
 import { useMemo, useState } from 'react';
 import { FlatList, View } from 'react-native';
 import { dueStatus, todayISODate } from '../../lib/ledger';
-import { useStore, useSummaries } from '../../lib/store';
+import { useContacts, useSummaries } from '../../lib/store';
 import { Chip, EmptyState } from '../../ui/kit';
 import { ContactRow } from '../../ui/rows';
 import { space } from '../../ui/theme';
@@ -10,7 +10,7 @@ import { space } from '../../ui/theme';
 type Filter = 'overdue' | 'today' | 'week' | 'all';
 
 export default function Due() {
-  const contacts = useStore((s) => s.contacts);
+  const contacts = useContacts();
   const summaries = useSummaries();
   const [filter, setFilter] = useState<Filter>('overdue');
 
